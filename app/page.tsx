@@ -3,10 +3,10 @@
 import { FormEvent, useEffect, useState } from "react";
 
 const services = [
-  { n: "01", title: "Modelagem 3D", text: "Criamos ou adaptamos arquivos tridimensionais com medidas, encaixes e detalhes pensados para o seu uso.", benefit: "Da referência ao arquivo pronto" },
-  { n: "02", title: "Impressão 3D", text: "Produção em PLA, PETG ou resina, com controle de material, escala, resistência e acabamento.", benefit: "Precisão camada por camada" },
-  { n: "03", title: "Personalização", text: "Presentes, objetos, personagens e peças exclusivas que não existem prontas em nenhuma prateleira.", benefit: "Uma peça verdadeiramente sua" },
-  { n: "04", title: "Projetos corporativos", text: "Brindes, protótipos e soluções sob medida para marcas, empresas, eventos e ativações.", benefit: "Sua marca em forma de objeto" },
+  { n: "01", title: "Modelagem 3D", text: "Criamos ou adaptamos arquivos tridimensionais com medidas, encaixes e detalhes pensados para o seu uso.", benefit: "Da referência ao arquivo pronto", image: "/about-3d.png", position: "center" },
+  { n: "02", title: "Impressão 3D", text: "Produção em PLA, PETG ou resina, com controle de material, escala, resistência e acabamento.", benefit: "Precisão camada por camada", image: "/portfolio-prototype.png", position: "65% center" },
+  { n: "03", title: "Personalização", text: "Presentes, objetos, personagens e peças exclusivas que não existem prontas em nenhuma prateleira.", benefit: "Uma peça verdadeiramente sua", image: "/hero-3d.png", position: "70% center" },
+  { n: "04", title: "Projetos corporativos", text: "Brindes, protótipos e soluções sob medida para marcas, empresas, eventos e ativações.", benefit: "Sua marca em forma de objeto", image: "/portfolio-trophy.png", position: "center 35%" },
 ];
 
 const process = [
@@ -273,6 +273,10 @@ function ServicesCarousel() {
                 className={`service-card ${isOriginalIndex ? "card-active" : ""}`} 
                 key={`${s.n}-${idx}`}
                 onClick={() => setCurrent(idx % services.length)}
+                style={{
+                  backgroundImage: `url('${s.image}')`,
+                  backgroundPosition: s.position,
+                }}
               >
                 <div className="card-top">
                   <span>{s.n}</span>

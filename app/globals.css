@@ -5,11 +5,14 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}.reveal{opacity:1;transform:none}}
 
 /* Card refinements */
-.service-card{min-height:340px;padding:30px;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(145deg,#222429 0%,var(--graphite) 72%);border:1px solid #35373b;position:relative;transition:transform .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease)}
-.service-card:after{content:"";position:absolute;width:150px;height:150px;right:-85px;top:-85px;border-radius:50%;background:rgba(198,161,91,.08);transition:.35s var(--ease)}
-.service-card:hover:after{transform:scale(1.35);background:rgba(198,161,91,.12)}
+.service-card{min-height:340px;padding:30px;border-radius:16px;display:flex;flex-direction:column;overflow:hidden;background-color:var(--graphite);background-repeat:no-repeat;background-size:cover;border:1px solid #35373b;position:relative;isolation:isolate;transition:transform .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease)}
+.service-card:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(18,19,22,.42) 0%,rgba(18,19,22,.72) 48%,rgba(18,19,22,.96) 100%);transition:background .35s var(--ease)}
+.service-card:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(115deg,rgba(198,161,91,.12),transparent 45%);opacity:.55;transition:opacity .35s var(--ease)}
+.service-card:hover:before,.service-card.card-active:before{background:linear-gradient(180deg,rgba(18,19,22,.28) 0%,rgba(18,19,22,.64) 48%,rgba(18,19,22,.95) 100%)}
+.service-card:hover:after,.service-card.card-active:after{opacity:1}
 .service-card h3{margin:52px 0 16px}
-.service-card>p{margin:0;color:#bfc0bf}
+.service-card>p{margin:0;color:#e0e0dd;text-shadow:0 1px 12px rgba(0,0,0,.7)}
+.service-card .card-top,.service-card h3,.service-card .benefit{position:relative;z-index:1;text-shadow:0 1px 12px rgba(0,0,0,.8)}
 .benefit{position:static;margin-top:auto;padding-top:16px}
 
 /* Services Carousel */
