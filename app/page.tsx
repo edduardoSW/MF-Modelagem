@@ -180,7 +180,6 @@ function EmailIcon({ size = 18 }: { size?: number }) {
   );
 }
 
-<<<<<<< HEAD
 function ServicesCarousel() {
   const [current, setCurrent] = useState(0);
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -291,8 +290,6 @@ function ServicesCarousel() {
   );
 }
 
-=======
->>>>>>> 51a917e404587336d2b9e396e48ecf24b36acc50
 export default function Home() {
   const [menu, setMenu] = useState(false);
   const [solid, setSolid] = useState(false);
@@ -335,7 +332,6 @@ export default function Home() {
 
     <section className="about section" id="sobre">
       <div className="section-number reveal"><span /> SOBRE A MF</div>
-<<<<<<< HEAD
       <div className="about-text reveal">
         <div className="about-title">
           <p className="eyebrow dark-gold">Da ideia ao objeto</p>
@@ -360,20 +356,12 @@ export default function Home() {
           </div>
         </div>
       </div>
-=======
-      <div className="about-title reveal"><p className="eyebrow dark-gold">Da ideia ao objeto</p><h2>Tecnologia para criar<br />o que <span>ainda não existe.</span></h2></div>
-      <div className="about-copy reveal"><p>A MF Design e Modelagem 3D une criatividade, precisão técnica e fabricação digital para transformar ideias em peças reais.</p><p>Do brinde corporativo ao presente único, cada projeto recebe o mesmo cuidado: entender a necessidade, modelar com precisão e produzir com acabamento de vitrine.</p><a href="#processo">Conheça nosso processo <span>→</span></a></div>
->>>>>>> 51a917e404587336d2b9e396e48ecf24b36acc50
     </section>
 
     <section className="services section" id="servicos">
       <div className="section-number reveal"><span /> SERVIÇOS</div>
       <div className="services-head reveal"><div><p className="eyebrow gold">Quatro soluções principais</p><h2>O caminho certo<br />para cada <span>ideia.</span></h2></div><p>Você não precisa chegar com tudo resolvido. Basta uma referência, uma medida ou uma intenção.</p></div>
-<<<<<<< HEAD
       <ServicesCarousel />
-=======
-      <div className="service-grid">{services.map(s => <article className="service-card reveal" key={s.n}><div className="card-top"><span>{s.n}</span><i>↗</i></div><h3>{s.title}</h3><p>{s.text}</p><div className="benefit">{s.benefit}</div></article>)}</div>
->>>>>>> 51a917e404587336d2b9e396e48ecf24b36acc50
     </section>
 
     <section className="process section" id="processo">
