@@ -1,0 +1,13 @@
+node_modules
+.next
+.git
+.agents
+.openai
+.vinext
+.vite
+.wrangler
+build
+examples
+worker
+*.zip
+npm-debug.log*
