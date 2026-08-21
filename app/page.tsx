@@ -1,20 +1,89 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 
 const services = [
-  { n: "01", title: "Modelagem 3D", text: "Criamos ou adaptamos arquivos tridimensionais com medidas, encaixes e detalhes pensados para o seu uso.", benefit: "Da referência ao arquivo pronto", image: "/about-3d.png", position: "center" },
-  { n: "02", title: "Impressão 3D", text: "Produção em PLA, PETG ou resina, com controle de material, escala, resistência e acabamento.", benefit: "Precisão camada por camada", image: "/portfolio-prototype.png", position: "65% center" },
-  { n: "03", title: "Personalização", text: "Presentes, objetos, personagens e peças exclusivas que não existem prontas em nenhuma prateleira.", benefit: "Uma peça verdadeiramente sua", image: "/hero-3d.png", position: "70% center" },
-  { n: "04", title: "Projetos corporativos", text: "Brindes, protótipos e soluções sob medida para marcas, empresas, eventos e ativações.", benefit: "Sua marca em forma de objeto", image: "/portfolio-trophy.png", position: "center 35%" },
+  { n: "01", title: "Modelagem 3D", text: "Transformamos sua ideia em um projeto exclusivo, pensado para ganhar forma do jeito que você imaginou.", benefit: "Da ideia para a realidade", image: "/Lampada_7.webp", position: "center" },
+  { n: "02", title: "Impressão 3D", text: "Produzimos peças únicas com cuidado em cada detalhe, prontas para decorar, presentear ou facilitar o seu dia a dia.", benefit: "Sua criação ganha forma", image: "/Estante.webp", position: "center" },
+  { n: "03", title: "Personalização", text: "Criamos presentes, personagens e objetos cheios de significado, feitos especialmente para você.", benefit: "Uma peça verdadeiramente sua", image: "/Boneco_7.webp", position: "center" },
+  { n: "04", title: "Projetos corporativos", text: "Criamos peças que valorizam sua marca e tornam presentes, eventos e ambientes ainda mais memoráveis.", benefit: "Sua marca em forma de objeto", image: "/Placa_7.jpeg", position: "center" },
 ];
 
-const process = [
-  ["01", "Você envia a ideia", "Referência, medida ou uma descrição inicial."],
-  ["02", "Modelagem 3D", "A peça é desenhada e validada digitalmente."],
-  ["03", "Impressão", "Fatiamento e produção camada por camada."],
-  ["04", "Acabamento", "Lixamento, pintura ou tratamento quando necessário."],
-  ["05", "Entrega", "Retirada ou envio da sua peça pronta."],
+const processSteps = [
+  {
+    n: "01",
+    title: "Você envia a ideia",
+    desc: "Referência, medida ou uma descrição inicial.",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+    ),
+  },
+  {
+    n: "02",
+    title: "Modelagem 3D",
+    desc: "A peça é desenhada e validada digitalmente.",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+      </svg>
+    ),
+  },
+  {
+    n: "03",
+    title: "Impressão",
+    desc: "Fatiamento e produção camada por camada.",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+        <rect x="6" y="14" width="12" height="8"></rect>
+      </svg>
+    ),
+  },
+  {
+    n: "04",
+    title: "Entrega",
+    desc: "Retirada ou envio da sua peça pronta.",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="1" y="3" width="15" height="13"></rect>
+        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+        <circle cx="5.5" cy="18.5" r="2.5"></circle>
+        <circle cx="18.5" cy="18.5" r="2.5"></circle>
+      </svg>
+    ),
+  },
+];
+
+const googleReviews = [
+  {
+    name: "Raquel Moreno Cordeiro Neves",
+    text: "Excelente trabalho, postura impecável!\nAgradeço pela dedicação e cuidado com os trabalhos feitos! Que vcs alcancem ainda mais sucesso!!!\nParabéns aos profissionais!",
+  },
+  {
+    name: "Tainara Caldas",
+    text: "Fiz uma placa linda da minha empresa para levar em eventos. Atendimento de primeira, muito atenciosa! Recomendo!",
+  },
+  {
+    name: "Emporio Premium",
+    text: "Trabalho maravilhoso!!! super atenciosa, me deu muita atenção, tirou minhas duvidas...com certeza voltarei a fazer outros trabalhos com ela!! Preço super justo pelo maravilhoso trabalho!",
+  },
+  {
+    name: "Victor Hugo Pimentel Pozes",
+    text: "Tive uma experiência excelente! O atendimento foi impecável do início ao fim, sempre com muita atenção, educação e disposição para tirar todas as minhas dúvidas. O trabalho de impressão 3D superou minhas expectativas: peças com acabamento perfeito, ótima qualidade e entregues dentro do prazo.\n\nÉ nítido o cuidado e o profissionalismo em cada detalhe. Sem dúvida, uma empresa que se preocupa com a satisfação do cliente e entrega um serviço de alto nível.\n\nRecomendo de olhos fechados para quem procura qualidade, comprometimento e um atendimento realmente diferenciado. Com certeza voltarei a fazer novos projetos com eles!",
+  },
+  {
+    name: "Mirela Scopel de Oliveira",
+    text: "Atendimento de primeira!! Muito profissionalismo!! Tira as dúvidas, se preocupa de não dar um prazo, sem ter certeza que não conseguirá atender.",
+  },
+  {
+    name: "Alexandre Souza",
+    text: "Excelente qualidade e atendimento muito rápido! Recomendo!",
+  },
 ];
 
 const projectCarousels = [
@@ -150,7 +219,19 @@ function ProjectCard({ project }: { project: typeof projectCarousels[0] }) {
   );
 }
 
-function Logo({ small = false }: { small?: boolean }) { return <span className={`logo ${small ? "logo-small" : ""}`}><b>MF</b><span>DESIGN E</span><em>MODELAGEM 3D</em></span> }
+function Logo({ small = false }: { small?: boolean }) {
+  if (small) return (
+    <img
+      className="logo-image"
+      src="/logo_mf_png.png"
+      alt="MF Design e Modelagem 3D"
+      width={88}
+      height={58}
+      style={{ width: 88, height: 58, objectFit: "contain" }}
+    />
+  );
+  return <span className="logo"><img className="logo-mark" src="/logo_mf_png.png" alt="MF" width={112} height={75} /><span>DESIGN E</span><em>MODELAGEM 3D</em></span>;
+}
 
 function WhatsappIcon({ size = 18, style = {} }: { size?: number; style?: React.CSSProperties }) {
   return (
@@ -300,6 +381,8 @@ export default function Home() {
   const [name, setName] = useState("");
   const [service, setService] = useState("");
   const [idea, setIdea] = useState("");
+  const [expandedReview, setExpandedReview] = useState<string | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => setSolid(window.scrollY > 50); onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
@@ -308,6 +391,24 @@ export default function Home() {
     return () => { window.removeEventListener("scroll", onScroll); observer.disconnect() };
   }, []);
 
+  useEffect(() => {
+    if (!menu) return;
+
+    const closeOnOutsideClick = (event: PointerEvent) => {
+      if (!headerRef.current?.contains(event.target as Node)) setMenu(false);
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenu(false);
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsideClick);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsideClick);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [menu]);
+
   const handleWhatsAppSubmit = (e: FormEvent) => {
     e.preventDefault();
     const text = `Olá! Meu nome é *${name}*.${service ? `\n*Serviço de interesse:* ${service}` : ""}${idea ? `\n\n*Detalhes da ideia:* ${idea}` : ""}`;
@@ -315,18 +416,26 @@ export default function Home() {
     window.open(url, "_blank");
   };
   return <main>
-    <header className={`header ${solid ? "solid" : ""} ${menu ? "open" : ""}`}>
+    <header ref={headerRef} className={`header ${solid ? "solid" : ""} ${menu ? "open" : ""}`}>
       <a href="#inicio" aria-label="MF Design e Modelagem 3D - Início"><Logo small /></a>
-      <nav aria-label="Navegação principal"><a href="#inicio">Início</a><a href="#sobre">Sobre nós</a><a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a><a href="#contato">Contato</a></nav>
+      <nav id="main-navigation" aria-label="Navegação principal" aria-hidden={!menu}><a href="#inicio" onClick={() => setMenu(false)}>Início</a><a href="#sobre" onClick={() => setMenu(false)}>Sobre nós</a><a href="#servicos" onClick={() => setMenu(false)}>Serviços</a><a href="#portfolio" onClick={() => setMenu(false)}>Portfólio</a><a href="https://www.google.com/search?sca_esv=9d29e6ff159d06e4&sxsrf=APpeQntNHpeGsUEcr_B1AwkLvtR_yH0q9A:1786975096582&kgmid=/g/11yqxxrc6r&q=MF+Design+e+Modelagem+3D+-+Impress%C3%A3o+3D+Personalizada&shem=dlvs1,epsd1,ltae,rimspwouoe&shndl=30&source=sh/x/loc/uni/m1/1&kgs=05bfb0987bfaa6de&utm_source=dlvs1,epsd1,ltae,rimspwouoe,sh/x/loc/uni/m1/1" target="_blank" rel="noreferrer" onClick={() => setMenu(false)}>Avaliações</a><a href="#contato" onClick={() => setMenu(false)}>Contato</a></nav>
       <a className="button button-gold header-cta" href="https://wa.me/5527997845945" target="_blank" rel="noreferrer"><WhatsappIcon /> Fale conosco <span>↗</span></a>
-      <button className="menu" aria-label="Abrir menu" aria-expanded={menu} onClick={() => setMenu(!menu)}><i /><i /></button>
+      <button className="menu" type="button" aria-label={menu ? "Fechar menu" : "Abrir menu"} aria-controls="main-navigation" aria-expanded={menu} onClick={() => setMenu(!menu)}><i /><i /><i /></button>
     </header>
 
     <section className="hero" id="inicio">
-      <div className="hero-photo" /><div className="hero-shade" />
+      <div
+        className="hero-photo"
+        style={{ backgroundImage: "url('/img1.png?v=2')" }}
+        role="img"
+        aria-label="Coleção de luminárias decorativas em formato de lua e globo terrestre"
+      /><div className="hero-shade" />
       <div className="hero-content reveal visible">
-        <p className="eyebrow gold">Modelagem e impressão 3D personalizada</p>
-        <Logo />
+        <span className="logo hero-branded-logo">
+          <img src="/logo_mf_png.png" alt="MF" width={220} height={150} />
+          <span>DESIGN E</span>
+          <em>MODELAGEM 3D</em>
+        </span>
         <h1>Você imagina,<br /><span>a gente dá forma.</span></h1>
         <p className="hero-text">Transformamos referências, medidas e ideias em objetos físicos feitos especialmente para você.</p>
         <div className="actions"><a className="button button-gold" href="https://wa.me/5527997845945" target="_blank" rel="noreferrer"><WhatsappIcon /> Fale conosco <span>↗</span></a></div>
@@ -335,7 +444,7 @@ export default function Home() {
     </section>
 
     <section className="about section" id="sobre">
-      <div className="section-number reveal"><span /> SOBRE A MF</div>
+      <div className="section-number reveal">SOBRE A MF</div>
       <div className="about-text reveal">
         <div className="about-title">
           <p className="eyebrow dark-gold">Da ideia ao objeto</p>
@@ -348,34 +457,31 @@ export default function Home() {
         </div>
       </div>
       <div className="about-media reveal">
-        <div className="empty-placeholder-card">
-          <div className="empty-placeholder-content">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="placeholder-icon">
-              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-              <line x1="12" y1="22.08" x2="12" y2="12"></line>
-            </svg>
-            <p className="placeholder-title">SUA IMAGEM / MODELO 3D AQUI</p>
-            <span className="placeholder-sub">Tamanho recomendado: 800 x 600 px</span>
-          </div>
+        <div className="about-image-card">
+          <img
+            src="/Lampada_rosa.webp"
+            alt="Luminária rosa personalizada produzida pela MF Design e Modelagem 3D"
+            width={800}
+            height={600}
+          />
         </div>
       </div>
     </section>
 
     <section className="services section" id="servicos">
-      <div className="section-number reveal"><span /> SERVIÇOS</div>
+      <div className="section-number reveal">SERVIÇOS</div>
       <div className="services-head reveal"><div><p className="eyebrow gold">Quatro soluções principais</p><h2>O caminho certo<br />para cada <span>ideia.</span></h2></div><p>Você não precisa chegar com tudo resolvido. Basta uma referência, uma medida ou uma intenção.</p></div>
       <ServicesCarousel />
     </section>
 
     <section className="process section" id="processo">
-      <div className="section-number reveal">03 <span /> COMO FUNCIONA</div>
+      <div className="section-number reveal">COMO FUNCIONA</div>
       <div className="process-head reveal"><p className="eyebrow dark-gold">Simples do início ao fim</p><h2>Da primeira mensagem<br />à peça <span>na sua mão.</span></h2></div>
-      <div className="timeline">{process.map(([n, t, d]) => <div className="step reveal" key={n}><span>{n}</span><div><h3>{t}</h3><p>{d}</p></div></div>)}</div>
+      <div className="timeline">{processSteps.map((step) => <div className="step reveal" key={step.n}><span className="step-icon">{step.icon}</span><div><h3>{step.title}</h3><p>{step.desc}</p></div></div>)}</div>
     </section>
 
     <section className="portfolio section" id="portfolio">
-      <div className="section-number reveal">04 <span /> PROJETOS EM DESTAQUE</div>
+      <div className="section-number reveal">PROJETOS EM DESTAQUE</div>
       <div className="portfolio-head reveal"><div><p className="eyebrow gold">Feito sob medida</p><h2>Ideias que ganharam<br /><span>forma e presença.</span></h2></div><a href="https://wa.me/5527997845945" target="_blank" rel="noreferrer">Iniciar um projeto <span>→</span></a></div>
       <div className="project-grid">
         {projectCarousels.map((p) => (
@@ -384,7 +490,210 @@ export default function Home() {
       </div>
     </section>
 
-    <section className="quote"><div className="quote-mark">“</div><blockquote className="reveal">Você imagina.<br />A gente dá <span>forma.</span></blockquote><p className="reveal">PERSONALIZAÇÃO REAL · PRECISÃO TÉCNICA · ACABAMENTO CUIDADO</p></section>
+    <section className="google-reviews section">
+      <div className="section-number reveal">AVALIAÇÕES</div>
+      <div className="google-reviews-head reveal">
+        <div>
+          <p className="eyebrow dark-gold">Depoimentos</p>
+          <h2>AVALIAÇÕES</h2>
+        </div>
+      </div>
+
+      <div className="google-review-grid">
+        {googleReviews.map((review) => {
+          const expanded = expandedReview === review.name;
+          const isVictorReview = review.name === "Victor Hugo Pimentel Pozes";
+
+          return (
+            <article key={review.name} className="google-review-card reveal">
+              <div className="google-review-top">
+                <div className="google-review-author">
+                  <span className="google-avatar">{review.name.split(" ").slice(0, 2).map(part => part[0]).join("").slice(0,2).toUpperCase()}</span>
+                  <strong>{review.name}</strong>
+                </div>
+                <div className="google-stars" aria-label="5 de 5 estrelas" title="5 de 5 estrelas">
+                  {Array.from({ length: 5 }).map((_, idx) => (
+                    <svg key={idx} viewBox="0 0 20 20" aria-hidden="true">
+                      <path d="M10 1.4l2.4 4.9 5.4.8-3.9 3.8 1 5.4-4.9-2.6-4.9 2.6 1-5.4L2.2 7.1l5.4-.8L10 1.4Z" />
+                    </svg>
+                  ))}
+                </div>
+              </div>
+
+              <p className={`google-review-text ${expanded ? "expanded" : ""}`}>{review.text}</p>
+
+              {isVictorReview && (
+                <button type="button" className="google-review-toggle" onClick={() => setExpandedReview(expanded ? null : review.name)}>
+                  {expanded ? "Ler menos" : "Ler mais"}
+                </button>
+              )}
+            </article>
+          );
+        })}
+      </div>
+
+      <div className="google-reviews-cta reveal">
+        <a className="button button-gold" href="https://www.google.com/search?sca_esv=9d29e6ff159d06e4&sxsrf=APpeQntNHpeGsUEcr_B1AwkLvtR_yH0q9A:1786975096582&kgmid=/g/11yqxxrc6r&q=MF+Design+e+Modelagem+3D+-+Impress%C3%A3o+3D+Personalizada&shem=dlvs1,epsd1,ltae,rimspwouoe&shndl=30&source=sh/x/loc/uni/m1/1&kgs=05bfb0987bfaa6de&utm_source=dlvs1,epsd1,ltae,rimspwouoe,sh/x/loc/uni/m1/1" target="_blank" rel="noreferrer">confira mais <span>↗</span></a>
+      </div>
+
+      <style jsx>{`
+        .google-reviews {
+          max-width: none;
+          background: linear-gradient(180deg, rgba(247,245,241,.96) 0%, rgba(255,255,255,.8) 100%);
+          color: var(--studio);
+          padding-left: max(4vw, calc((100vw - 1320px) / 2));
+          padding-right: max(4vw, calc((100vw - 1320px) / 2));
+          border-top: 1px solid rgba(18,19,22,.08);
+          border-bottom: 1px solid rgba(18,19,22,.08);
+        }
+
+        .google-reviews .section-number {
+          color: var(--gray);
+        }
+
+        .google-reviews-head {
+          margin: 65px 0 30px;
+        }
+
+        .google-reviews-head h2 {
+          font: 600 clamp(2.5rem, 4.4vw, 4.2rem)/1.02 var(--font-display);
+          letter-spacing: -0.045em;
+          margin: 18px 0 0;
+        }
+
+        .google-review-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 20px;
+        }
+
+        .google-review-card {
+          background: rgba(255,255,255,.7);
+          border: 1px solid rgba(18,19,22,.08);
+          border-radius: 18px;
+          padding: 22px 20px;
+          box-shadow: 0 12px 28px rgba(18,19,22,.05);
+        }
+
+        .google-review-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 12px;
+          margin-bottom: 18px;
+        }
+
+        .google-review-author {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          min-width: 0;
+        }
+
+        .google-avatar {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          background: rgba(198,161,91,.12);
+          border: 1px solid rgba(198,161,91,.38);
+          color: var(--gold-dark);
+          font: 700 .68rem var(--font-mono);
+          letter-spacing: .08em;
+          flex-shrink: 0;
+        }
+
+        .google-review-top strong {
+          display: block;
+          font: 600 1rem var(--font-display);
+          letter-spacing: -0.03em;
+          color: var(--studio);
+          overflow-wrap: anywhere;
+        }
+
+        .google-stars {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          flex-shrink: 0;
+        }
+
+        .google-stars svg {
+          width: 16px;
+          height: 16px;
+          fill: var(--gold);
+        }
+
+        .google-review-text {
+          margin: 0;
+          color: var(--ink);
+          font-size: 1rem;
+          line-height: 1.7;
+          white-space: pre-line;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 4;
+          line-clamp: 4;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .google-review-text.expanded {
+          display: block;
+          -webkit-line-clamp: unset;
+          line-clamp: unset;
+          overflow: visible;
+          text-overflow: clip;
+        }
+
+        .google-review-toggle {
+          margin-top: 12px;
+          border: none;
+          background: transparent;
+          color: var(--gold-dark);
+          font: 600 .9rem var(--font-display);
+          letter-spacing: -0.02em;
+          padding: 0;
+          cursor: pointer;
+        }
+
+        .google-review-toggle:hover {
+          text-decoration: underline;
+        }
+
+        .google-reviews-cta {
+          display: flex;
+          justify-content: center;
+          margin-top: 34px;
+        }
+
+        .google-reviews-cta .button {
+          gap: 18px;
+        }
+
+        @media (max-width: 1024px) {
+          .google-review-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+
+        @media (max-width: 640px) {
+          .google-review-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .google-review-card {
+            padding: 18px 16px;
+          }
+
+          .google-review-top {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+        }
+      `}</style>
+    </section>
 
     <section className="contact section" id="contato">
       <div className="contact-copy reveal">
@@ -447,6 +756,7 @@ export default function Home() {
       </div>
       <div className="footer-bottom">
         <span>© 2026 MF DESIGN E MODELAGEM 3D</span>
+        <a href="https://ejuvv.com/" target="_blank" rel="noreferrer">FEITO POR EJUVV ↗</a>
         <a href="#inicio">VOLTAR AO TOPO ↑</a>
       </div>
     </footer>
