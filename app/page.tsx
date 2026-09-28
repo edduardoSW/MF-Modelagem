@@ -92,28 +92,28 @@ const projectCarousels = [
     isMain: true,
     slides: [
       {
-        image: "/hero-3d.png",
+        image: "/No_sei_2_otimizado.webp",
         tag: "SOB ENCOMENDA",
-        category: "OBJETO DECORATIVO",
-        title: "Escultura Entrelaços",
-        specs: "PLA PREMIUM · 28 CM · 14H IMPRESSÃO",
-        cropClass: "crop-a"
-      },
-      {
-        image: "/portfolio-trophy.png",
-        tag: "SOB ENCOMENDA",
-        category: "ARTE & DECORAÇÃO",
-        title: "Escultura Orgânica Gold",
-        specs: "RESINA PREMIUM · 32 CM · PINTURA MANUAL",
+        category: "ORGANIZAÇÃO E DECORAÇÃO",
+        title: "Conjunto de porta-objetos",
+        specs: "DOIS MÓDULOS · TAMPA REMOVÍVEL · ACABAMENTO TEXTURIZADO",
         cropClass: "crop-b"
       },
       {
-        image: "/portfolio-prototype.png",
+        image: "/Castelo_otimizado.webp",
         tag: "SOB ENCOMENDA",
-        category: "MODELAGEM CONCEITUAL",
-        title: "Estrutura Paramétrica",
-        specs: "PETG FOSCO · ESC. 1:1 · ACABAMENTO PREMIUM",
+        category: "DECORAÇÃO TEMÁTICA",
+        title: "Globo iluminado com castelo",
+        specs: "CÚPULA DECORATIVA · ILUMINAÇÃO INTERNA · BASE PERSONALIZADA",
         cropClass: "crop-c"
+      },
+      {
+        image: "/No_sei_otimizado.webp",
+        tag: "SOB ENCOMENDA",
+        category: "ORGANIZAÇÃO PARA AMBIENTES",
+        title: "Organizador modular de bancada",
+        specs: "DIVISÓRIAS FUNCIONAIS · DESIGN COMPACTO · PROJETO SOB MEDIDA",
+        cropClass: "crop-a"
       }
     ]
   },
@@ -122,21 +122,30 @@ const projectCarousels = [
     isMain: false,
     slides: [
       {
-        image: "/portfolio-prototype.png",
+        image: "/Gatinho_otimizado.webp",
         tag: "PERSONALIZADO",
-        category: "PROTÓTIPO TÉCNICO",
-        title: "Forma Modular",
-        specs: "PETG · ESC. 1:4 · ACABAMENTO FOSCO",
+        category: "HOMENAGEM PERSONALIZADA",
+        title: "Heroína dos Gatinhos",
+        specs: "MINIATURA TEMÁTICA · MEDALHA PERSONALIZADA · PINTURA COLORIDA",
         cropClass: "crop-b"
       },
       {
-        image: "/hero-3d.png",
+        image: "/Cachorrosoucachorronao_otimizado.webp",
         tag: "PERSONALIZADO",
-        category: "ENGENHARIA REVERSA",
-        title: "Engrenagem Helicoidal",
-        specs: "ABS REFORÇADO · ENCAIXE DE PRECISÃO",
+        category: "PERSONALIZAÇÃO PET",
+        title: "Memorial personalizado do seu pet",
+        specs: "MINIATURA REALISTA · QUADRO ILUSTRADO · BASE DECORATIVA",
+        cropClass: "crop-a"
+      },
+      {
+        image: "/Boneco_9_otimizado.webp",
+        tag: "PERSONALIZADO",
+        category: "MINIATURA SOB MEDIDA",
+        title: "Retrato em miniatura",
+        specs: "PERSONAGEM PERSONALIZADO · ACESSÓRIO MODELADO · BASE ILUSTRADA",
         cropClass: "crop-a"
       }
+      
     ]
   },
   {
@@ -144,19 +153,19 @@ const projectCarousels = [
     isMain: false,
     slides: [
       {
-        image: "/portfolio-trophy.png",
+        image: "/Corporativo_1.webp",
         tag: "CORPORATIVO",
-        category: "PEÇA DE MARCA",
-        title: "Troféu Movimento",
-        specs: "RESINA · 22 CM · PINTURA MANUAL",
+        category: "MASCOTE CORPORATIVO",
+        title: "Personagem Pneumax",
+        specs: "IDENTIDADE VISUAL APLICADA · ESCULTURA 3D · PINTURA PERSONALIZADA",
         cropClass: "crop-c"
       },
       {
-        image: "/about-3d.png",
+        image: "/Corporativo_2_melhorado.webp",
         tag: "CORPORATIVO",
-        category: "BRINDE EXCLUSIVO",
-        title: "Luminária de Marca",
-        specs: "PLA TRANSLÚCIDO · LED INTEGRADO",
+        category: "MASCOTE PARA MARCAS",
+        title: "Mascote PMX Pneus",
+        specs: "PERSONAGEM TEMÁTICO · ELEMENTOS DA MARCA · ACABAMENTO PREMIUM",
         cropClass: "crop-a"
       }
     ]
@@ -177,10 +186,17 @@ function ProjectCard({ project }: { project: typeof projectCarousels[0] }) {
   };
 
   const active = project.slides[current];
+  const alignImageTop = ["Retrato em miniatura", "Mascote PMX Pneus", "Personagem Pneumax"].includes(active.title);
 
   return (
     <article className={`project ${project.isMain ? "project-main" : ""} reveal`}>
-      <div className={`project-image ${active.cropClass}`} style={{ backgroundImage: `url('${active.image}')` }}>
+      <div className={`project-image ${active.cropClass}`}>
+        <img
+          className={`project-image-media object-cover ${alignImageTop ? "md:object-top" : ""}`}
+          style={alignImageTop ? { objectPosition: "center top" } : undefined}
+          src={active.image}
+          alt={active.title}
+        />
         <span>{active.tag}</span>
 
         {project.slides.length > 1 && (
@@ -238,25 +254,6 @@ function WhatsappIcon({ size = 18, style = {} }: { size?: number; style?: React.
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" style={{ display: "inline-block", verticalAlign: "middle", marginRight: size === 18 ? "6px" : "0px", ...style }}>
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347z" />
       <path d="M12 0C5.373 0 0 5.373 0 12c0 2.119.553 4.11 1.519 5.84L0 24l6.328-1.48A11.937 11.937 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.805 0-3.52-.468-5.016-1.287l-.36-.213-3.734.873.886-3.636-.234-.373A9.956 9.956 0 012 12c0-5.514 4.486-10 10-10s10 4.486 10 10-4.486 10-10 10z" />
-    </svg>
-  );
-}
-
-function InstagramIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle" }}>
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-    </svg>
-  );
-}
-
-function EmailIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", verticalAlign: "middle" }}>
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-      <polyline points="22,6 12,13 2,6"></polyline>
     </svg>
   );
 }
@@ -378,6 +375,8 @@ function ServicesCarousel() {
 export default function Home() {
   const [menu, setMenu] = useState(false);
   const [solid, setSolid] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [isHome, setIsHome] = useState(true);
   const [name, setName] = useState("");
   const [service, setService] = useState("");
   const [idea, setIdea] = useState("");
@@ -385,10 +384,24 @@ export default function Home() {
   const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 50); onScroll(); window.addEventListener("scroll", onScroll, { passive: true });
+    let scrollStopTimer: number | undefined;
+    const onScroll = () => {
+      setSolid(window.scrollY > 50);
+      setIsHome(window.scrollY < window.innerHeight * 0.85);
+      setIsScrolling(true);
+      window.clearTimeout(scrollStopTimer);
+      scrollStopTimer = window.setTimeout(() => {
+        setIsScrolling(false);
+      }, 700);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
     const observer = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting && e.target.classList.add("visible")), { threshold: .12 });
     document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-    return () => { window.removeEventListener("scroll", onScroll); observer.disconnect() };
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.clearTimeout(scrollStopTimer);
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -416,20 +429,18 @@ export default function Home() {
     window.open(url, "_blank");
   };
   return <main>
-    <header ref={headerRef} className={`header ${solid ? "solid" : ""} ${menu ? "open" : ""}`}>
-      <a href="#inicio" aria-label="MF Design e Modelagem 3D - Início"><Logo small /></a>
+    <header ref={headerRef} className={`header ${solid ? "solid" : ""} ${isHome ? "home" : ""} ${isScrolling ? "scrolling" : ""} ${menu ? "open" : ""}`}>
       <nav id="main-navigation" aria-label="Navegação principal" aria-hidden={!menu}><a href="#inicio" onClick={() => setMenu(false)}>Início</a><a href="#sobre" onClick={() => setMenu(false)}>Sobre nós</a><a href="#servicos" onClick={() => setMenu(false)}>Serviços</a><a href="#portfolio" onClick={() => setMenu(false)}>Portfólio</a><a href="https://www.google.com/search?sca_esv=9d29e6ff159d06e4&sxsrf=APpeQntNHpeGsUEcr_B1AwkLvtR_yH0q9A:1786975096582&kgmid=/g/11yqxxrc6r&q=MF+Design+e+Modelagem+3D+-+Impress%C3%A3o+3D+Personalizada&shem=dlvs1,epsd1,ltae,rimspwouoe&shndl=30&source=sh/x/loc/uni/m1/1&kgs=05bfb0987bfaa6de&utm_source=dlvs1,epsd1,ltae,rimspwouoe,sh/x/loc/uni/m1/1" target="_blank" rel="noreferrer" onClick={() => setMenu(false)}>Avaliações</a><a href="#contato" onClick={() => setMenu(false)}>Contato</a></nav>
-      <a className="button button-gold header-cta" href="https://wa.me/5527997845945" target="_blank" rel="noreferrer"><WhatsappIcon /> Fale conosco <span>↗</span></a>
+      <a className="button button-gold header-cta" href="https://wa.me/5527997845945" target="_blank" rel="noreferrer"><WhatsappIcon /> Quero transformar minha ideia em 3D <span>↗</span></a>
       <button className="menu" type="button" aria-label={menu ? "Fechar menu" : "Abrir menu"} aria-controls="main-navigation" aria-expanded={menu} onClick={() => setMenu(!menu)}><i /><i /><i /></button>
     </header>
 
     <section className="hero" id="inicio">
-      <div
-        className="hero-photo"
-        style={{ backgroundImage: "url('/img1.png?v=2')" }}
-        role="img"
-        aria-label="Coleção de luminárias decorativas em formato de lua e globo terrestre"
-      /><div className="hero-shade" />
+      <div className="hero-photo" aria-hidden="true">
+        <video className="hero-video" autoPlay muted loop playsInline preload="metadata">
+          <source src="/mf-home-video.mp4" type="video/mp4" />
+        </video>
+      </div><div className="hero-shade" />
       <div className="hero-content reveal visible">
         <span className="logo hero-branded-logo">
           <img src="/logo_mf_png.png" alt="MF" width={220} height={150} />
@@ -437,8 +448,8 @@ export default function Home() {
           <em>MODELAGEM 3D</em>
         </span>
         <h1>Você imagina,<br /><span>a gente dá forma.</span></h1>
-        <p className="hero-text">Transformamos referências, medidas e ideias em objetos físicos feitos especialmente para você.</p>
-        <div className="actions"><a className="button button-gold" href="https://wa.me/5527997845945" target="_blank" rel="noreferrer"><WhatsappIcon /> Fale conosco <span>↗</span></a></div>
+        <p className="hero-text">Transformamos fotos, ideias, referências e projetos em peças únicas por meio da modelagem e impressão 3D.</p>
+        <div className="actions"><a className="button button-gold" href="https://wa.me/5527997845945" target="_blank" rel="noreferrer"><WhatsappIcon /> Quero transformar minha ideia em 3D <span>↗</span></a></div>
       </div>
       <div className="hero-spec"><span></span><span></span></div>
     </section>
@@ -482,7 +493,17 @@ export default function Home() {
 
     <section className="portfolio section" id="portfolio">
       <div className="section-number reveal">PROJETOS EM DESTAQUE</div>
-      <div className="portfolio-head reveal"><div><p className="eyebrow gold">Feito sob medida</p><h2>Ideias que ganharam<br /><span>forma e presença.</span></h2></div><a href="https://wa.me/5527997845945" target="_blank" rel="noreferrer">Iniciar um projeto <span>→</span></a></div>
+      <div className="portfolio-head reveal">
+        <div>
+          <p className="eyebrow gold">Feito sob medida</p>
+          <h2>Algumas ideias que já<br /><span>ganharam forma.</span></h2>
+          <div className="portfolio-copy">
+            <p>Cada projeto começa de um jeito diferente: uma foto, uma necessidade, uma marca ou simplesmente uma ideia.</p>
+            <p>Veja algumas peças que já transformamos em realidade.</p>
+          </div>
+        </div>
+        <a href="https://wa.me/5527997845945" target="_blank" rel="noreferrer">QUERO FAZER O MEU PROJETO <span>→</span></a>
+      </div>
       <div className="project-grid">
         {projectCarousels.map((p) => (
           <ProjectCard key={p.id} project={p} />
@@ -491,11 +512,12 @@ export default function Home() {
     </section>
 
     <section className="google-reviews section">
-      <div className="section-number reveal">AVALIAÇÕES</div>
+      <div className="section-number reveal">DEPOIMENTOS</div>
       <div className="google-reviews-head reveal">
         <div>
-          <p className="eyebrow dark-gold">Depoimentos</p>
-          <h2>AVALIAÇÕES</h2>
+          <p className="eyebrow dark-gold">Experiências reais</p>
+          <h2>Quem cria com a MF recomenda.</h2>
+          <p className="google-reviews-intro">Nada fala melhor sobre o nosso trabalho do que a experiência de quem já transformou uma ideia em realidade com a gente.</p>
         </div>
       </div>
 
@@ -533,7 +555,7 @@ export default function Home() {
       </div>
 
       <div className="google-reviews-cta reveal">
-        <a className="button button-gold" href="https://www.google.com/search?sca_esv=9d29e6ff159d06e4&sxsrf=APpeQntNHpeGsUEcr_B1AwkLvtR_yH0q9A:1786975096582&kgmid=/g/11yqxxrc6r&q=MF+Design+e+Modelagem+3D+-+Impress%C3%A3o+3D+Personalizada&shem=dlvs1,epsd1,ltae,rimspwouoe&shndl=30&source=sh/x/loc/uni/m1/1&kgs=05bfb0987bfaa6de&utm_source=dlvs1,epsd1,ltae,rimspwouoe,sh/x/loc/uni/m1/1" target="_blank" rel="noreferrer">confira mais <span>↗</span></a>
+        <a className="button button-gold" href="https://www.google.com/search?sca_esv=9d29e6ff159d06e4&sxsrf=APpeQntNHpeGsUEcr_B1AwkLvtR_yH0q9A:1786975096582&kgmid=/g/11yqxxrc6r&q=MF+Design+e+Modelagem+3D+-+Impress%C3%A3o+3D+Personalizada&shem=dlvs1,epsd1,ltae,rimspwouoe&shndl=30&source=sh/x/loc/uni/m1/1&kgs=05bfb0987bfaa6de&utm_source=dlvs1,epsd1,ltae,rimspwouoe,sh/x/loc/uni/m1/1" target="_blank" rel="noreferrer">VER MAIS AVALIAÇÕES <span>↗</span></a>
       </div>
 
       <style jsx>{`
@@ -697,15 +719,13 @@ export default function Home() {
 
     <section className="contact section" id="contato">
       <div className="contact-copy reveal">
-        <p className="eyebrow dark-gold">Vamos criar juntos?</p>
-        <h2>Conte a sua ideia.<br /><span>Nós cuidamos do resto.</span></h2>
-        <p>Envie uma referência, medida ou descrição. Retornaremos com as primeiras orientações.</p>
-        <a className="instagram-btn" href="https://www.instagram.com/mfdesign_model/" target="_blank" rel="noreferrer">
-          <InstagramIcon size={22} />
-          <span>
-            <small>NOSSO INSTAGRAM</small>
-            @mfdesign_model
-          </span>
+        <p className="eyebrow dark-gold">Chamada final</p>
+        <h2>Tem uma ideia?<br /><span>Vamos transformá-la em realidade.</span></h2>
+        <p>Envie sua foto, referência, medida, projeto ou simplesmente conte o que você gostaria de criar.</p>
+        <p>Nossa equipe analisa sua ideia e orienta você sobre as melhores possibilidades de produção.</p>
+        <a className="contact-whatsapp-btn" href="https://wa.me/5527997845945" target="_blank" rel="noreferrer">
+          <WhatsappIcon size={22} />
+          <span>PEDIR MEU ORÇAMENTO PELO WHATSAPP</span>
           <i>↗</i>
         </a>
       </div>
@@ -738,7 +758,8 @@ export default function Home() {
     <footer>
       <div className="footer-top">
         <Logo />
-        <p>Ideias únicas, transformadas em objetos reais através da modelagem e impressão 3D.</p>
+        <p>Ideias, fotos e projetos transformados em peças únicas através da modelagem e impressão 3D.</p>
+        <p className="footer-services">Personalizados • Pets • Miniaturas • Brindes • Projetos corporativos • Peças sob medida</p>
       </div>
       <div className="footer-links">
         <div>

@@ -12,6 +12,10 @@ npm ci
 npm run dev
 ```
 
+No Windows PowerShell, caso a política de execução bloqueie `npm.ps1`, use o
+Prompt de Comando (`cmd`) para executar os comandos acima. Como alternativa,
+permaneça no PowerShell e use `npm.cmd ci` e `npm.cmd run dev`.
+
 Para validar a versão de produção:
 
 ```bash
